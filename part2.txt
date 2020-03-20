@@ -1,0 +1,101 @@
+//Get first number
+INP R0,2
+
+//Check if it is lower than 1
+CMP R0,#1
+
+BLT error //Branch if it is lower than 1
+
+//Check if it is higher than 13
+
+CMP R0,#13
+
+BGT error //Branch if it is higher than 13
+
+//Get second number
+INP R1,2
+
+//Check if it is lower than 1
+CMP R1,#1
+
+BEQ error //Branch if it is lower than 1
+
+//Check if it is higher than 13
+CMP R1,#13
+
+BEQ error //Branch if it is higher than 13
+
+//Compare the second number with the first number
+
+CMP R1,R0
+
+//Branches
+
+BGT greater
+BLT lower
+BEQ equal
+
+greater:
+
+MOV R2,#greaterstring //Puts into R2 "is greater than"
+B out
+
+lower:
+
+MOV R2,#lowerstring //Puts into R2 "is lower than"
+B out
+
+equal:
+
+MOV R2,#equalstring //Puts into R2 "is equal to"
+B out
+
+error:
+//error messages when the numbers are not valid 
+
+MOV R2,#errorstring
+OUT R2,8
+HALT 
+
+out: 
+//output branch
+
+OUT R1,4
+OUT R2,8
+OUT R0,4
+
+HALT //end of the program 
+
+//DATA
+
+greaterstring:
+// define the greater than output string here
+    dat 0x67207369
+	dat 0x74616572
+	dat 0x74207265
+	dat 0x006e6168
+	
+lowerstring:
+// define the less than output string here
+	dat 0x6c207369
+	dat 0x7265776f
+	dat 0x61687420
+	dat 0x0000006e
+	
+equalstring:
+// define the equals than output string here
+	dat 0x65207369
+	dat 0x6c617571
+	dat 0x006f7420
+	
+errorstring:
+//error string
+	dat 0x61766e49
+	dat 0x2064696c
+	dat 0x626d756e
+	dat 0x00007265
+
+//Registers--------------
+//R0 = First number
+//R1 = Second number 
+//R2 = Text output 

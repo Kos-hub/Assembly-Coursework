@@ -1,0 +1,31 @@
+input firstNumber
+
+if (firstNumber < 1 || firstNumber > 13)
+	print an error message 
+	halt
+
+input secondNumber 
+
+if (secondNumber < 1 || secondNumber > 13)
+	print error message 
+	halt
+	
+convert firstNumber to card
+convert secondNumber to card
+
+if (secondNumber > firstNumber) 
+	print secondNumber
+	print greaterString
+	print firstNumber
+	
+	else if (secondNumber < firstNumber)
+		print secondNumber
+		print lowerString
+		print firstNumber
+	
+	else if (secondNumber == firstNumber)
+		print secondNumber
+		print equalString
+		print firstNumber
+	
+halt

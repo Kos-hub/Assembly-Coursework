@@ -1,0 +1,82 @@
+//Compare the first input
+INP R0,2
+CMP R0,#0
+
+BLT nope
+BEQ nope
+CMP R0,#13
+
+BGT nope
+
+//Compare the second number
+INP R1,2
+CMP R1,#0
+
+BLT nope
+BEQ nope
+CMP R1,#13
+
+BGT nope
+
+CMP R0,R1
+BGT greater
+BLT lower
+BEQ equal
+
+greater:
+
+MOV R2,#grT
+OUT R0,4
+OUT R2,8
+OUT R1,4
+HALT
+
+lower:
+
+MOV R2,#lwT
+OUT R0,4
+OUT R2,8
+OUT R1,4
+HALT
+
+equal: 
+
+MOV R2,#eqT
+OUT R1,4
+OUT R2,8
+OUT R0,4
+HALT
+
+nope:
+MOV R2,#no
+OUT R2,8
+
+
+
+//DATA
+grT:
+
+dat 0x67207369
+dat 0x74616572
+dat 0x74207265
+dat 0x006e6168
+
+lwT:
+
+dat 0x6c207369
+dat 0x7265776f
+dat 0x61687420
+dat 0x0000006e
+
+eqT:
+
+dat 0x65207369
+dat 0x6c617571
+dat 0x006f7420
+
+no:
+
+dat 0x61766e49
+dat 0x2064696c
+dat 0x626d756e
+dat 0x00007265

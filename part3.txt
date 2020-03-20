@@ -1,0 +1,141 @@
+// Part x
+
+// get first number
+INP R0,2
+
+//check if it is a valid number between 1 and 13
+CMP R0,#1
+BLT error 
+CMP R0,#13
+BGT error
+
+
+// get second number
+INP R1,2
+
+//check if it is a valid number between 1 and 13
+CMP R1,#1
+BLT error 
+CMP R1,#13
+BGT error
+	  
+	  
+// do comparison and branch (jump) to handler
+CMP R1,R0
+BGT greater
+BLT lower
+BEQ equal
+
+// Point to the correct output string below
+
+greater:
+// handle greater than case
+
+MOV R2,#greaterstring
+B out 
+
+lower:
+// handle lower than case
+
+MOV R2,#lowerstring
+B out
+
+equal:
+// handle when equal 
+
+MOV R2,#equalstring
+B out
+
+error:
+//error messages when the numbers are not valid 
+
+MOV R2,#errorstring
+OUT R2,8
+HALT 
+ 
+ 
+out:
+// print to the output device
+
+	MOV R3,#space //takes the space character
+	MOV R4,#cardletters
+	
+	ADD R1,R1,R4
+	ADD R0,R0,R4
+	
+	
+	//Text output
+    	OUT R1,8
+	
+	OUT R3,8
+	OUT R2,8
+	OUT R3,8
+	
+	OUT R0,8  
+	HALT   
+
+      halt  //terminate program
+	  
+	  
+	  
+// DATA
+// Make sure strings terminate with 0x00
+
+greaterstring:
+// define the greater than output string here
+    dat 0x67207369
+	dat 0x74616572
+	dat 0x74207265
+	dat 0x006e6168
+	  
+lowerstring:
+// define the less than output string here
+	dat 0x6c207369
+	dat 0x7265776f
+	dat 0x61687420
+	dat 0x0000006e
+	  
+equalstring:
+// define the equals than output string here
+	dat 0x65207369
+	dat 0x6c617571
+	dat 0x006f7420
+	
+errorstring:
+//error string
+	dat 0x61766e49
+	dat 0x2064696c
+	dat 0x626d756e
+	dat 0x00007265
+	  
+	  
+cardletters:
+// this is an array of all of the letters corresponding to the card values
+      dat 0x00 // this should never be referenced
+      dat 0x41 // A
+      dat 0x32 // 2
+      dat 0x33 // 3
+      dat 0x34 // 4
+      dat 0x35 // 5
+      dat 0x36 // 6
+      dat 0x37 // 7
+      dat 0x38 // 8
+      dat 0x39 // 9
+      dat 0x3031 // 10
+      dat 0x4A // J
+      dat 0x51 // Q
+      dat 0x4B // K
+	  
+space:
+      dat 0x20 // space char
+	  
+// minimum and maximum card values
+min:  dat 1 // min value of card, A
+max:  dat 13 // max value of card, K
+
+//Registers---------------
+//R0=First number
+//R1=Second number
+//R2=Text output
+//R3=space character
+//R4=array of cards 
